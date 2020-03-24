@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    build: db-docker/
+    ports:
+      - "3306:3306"
+    networks:
+      - "backend"
+  app:
+    build: data_transfer_app/
+    links:
+      - db
+    networks:
+      - "backend"
+    volumes:
+    - app_data:/home
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  app_data:
